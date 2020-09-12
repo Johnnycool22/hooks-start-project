@@ -23,15 +23,21 @@ const filteredIngredientsHandler = useCallback(filteredIngredients => {
     }).then(response => {
       return response.json();
     }).then(responseData => {
-      setUserIngredients(prevIngredients => [...prevIngredients, 
+      setUserIngredients(prevIngredients => 
+        [...prevIngredients, 
       { id: responseData.name, ...ingredient }
       ]);
     });
   };
 
 const removeIngredientHandler = ingredientId => {
-    setUserIngredients(prevIngredients => prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
-    );
+    fetch(`https://react-hooks-update-880b1.firebaseio.com/ingredients/${ingredientId}.json`, {
+      method: 'DELETE'
+    }).then(response => {
+        setUserIngredients(prevIngredients => 
+        prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
+    )
+  });
 };
 
   return (
