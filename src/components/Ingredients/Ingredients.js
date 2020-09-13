@@ -49,7 +49,7 @@ const filteredIngredientsHandler = useCallback(filteredIngredients => {
   dispatch({ type: 'SET', ingredients: filteredIngredients })
 }, []);
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     dispatchHttp({type: 'SEND'});
     fetch('https://react-hooks-update-880b1.firebaseio.com/ingredients.json', {
       method: 'POST',
@@ -65,7 +65,7 @@ const filteredIngredientsHandler = useCallback(filteredIngredients => {
      //  ]);
      dispatch({type: 'ADD', ingredient: { id: responseData.name, ...ingredient }});
     });
-  };
+  }, []);
 
 const removeIngredientHandler = ingredientId => {
     dispatchHttp({type: 'SEND'});
